@@ -486,7 +486,7 @@ public class GLPanel extends Panel
     Node n1 = new Node(""+tgPanel.getNodeCount() + 1, "room_zero");
     n1.setVisible(true);
     tgPanel.addNode(n1);//TODO: trigger addHiddenNode()
-    n1.setType( NodeStyle.STYLE_NONE);
+    n1.setStyle( NodeStyle.STYLE_NONE);
 
     for (int i = 0; i < 249; i++)
     {

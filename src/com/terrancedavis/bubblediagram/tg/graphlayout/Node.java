@@ -88,7 +88,7 @@ public class Node
 
   public static NodeStyle DEFAULT_TYPE = NodeStyle.STYLE_RECTANGLE;
 
-  protected NodeStyle typ = NodeStyle.STYLE_RECTANGLE;
+  protected NodeStyle style = NodeStyle.STYLE_RECTANGLE;
   private String id;
 
   public double drawx;
@@ -167,14 +167,11 @@ public class Node
   /**
    * Constructor with a String ID <tt>id</tt>, an int <tt>type</tt>, Background Color <tt>bgColor</tt>,
    * and a String <tt>label</tt>. If the label is null, it will be taken from the ID value.
-   *
-   * @see TYPE_RECTANGLE
-   * @see TYPE_ROUNDRECT
    */
   public Node(String id, NodeStyle type, Color color, String label)
   {
     initialize(id);
-    typ = type;
+    style = type;
     backColor = color;
     if (label == null)
     {
@@ -195,7 +192,7 @@ public class Node
     repulsion = 100;
     font = TEXT_FONT;
     fixed = false;
-    typ = DEFAULT_TYPE;
+    style = DEFAULT_TYPE;
     visibleEdgeCnt = 0;
     visible = false;
   }
@@ -304,30 +301,20 @@ public class Node
   }
 
   /**
-   * Set the type of this Node to the int <tt>type</tt>.
-   *
-   * @see TYPE_RECTANGLE
-   * @see TYPE_ROUNDRECT
-   * @see TYPE_ELLIPSE
-   * @see TYPE_CIRCLE
+   * Set the drawing style of this Node.
    */
 
-  public void setType(NodeStyle type)
+  public void setStyle(NodeStyle style)
   {
-    typ = type;
+    this.style = style;
   }
 
   /**
-   * Return the type of this Node as an int.
-   *
-   * @see TYPE_RECTANGLE
-   * @see TYPE_ROUNDRECT
-   * @see TYPE_ELLIPSE
-   * @see TYPE_CIRCLE
+   * Return the drawing style of this Node.
    */
-  public NodeStyle getType()
+  public NodeStyle getStyle()
   {
-    return typ;
+    return style;
   }
 
   /**
@@ -629,15 +616,15 @@ public class Node
     Color borderCol = getPaintBorderColor(tgPanel);
     g.setColor(borderCol);
 
-    if (typ == NodeStyle.STYLE_RECTANGLE)//TODO: abstract out into node or interface
+    if (style == NodeStyle.STYLE_RECTANGLE)//TODO: abstract out into node or interface
     {
       g.fillRoundRect(ix - w / 2, iy - h / 2, w, h, r, r);
     }
-    else if (typ == NodeStyle.STYLE_ELLIPSE)//TODO: abstract out into node or interface
+    else if (style == NodeStyle.STYLE_ELLIPSE)//TODO: abstract out into node or interface
     {
       g.fillOval(ix - w / 2, iy - h / 2, w, h);
     }
-    else if (typ == NodeStyle.STYLE_CIRCLE)//TODO: abstract out into node or interface
+    else if (style == NodeStyle.STYLE_CIRCLE)//TODO: abstract out into node or interface
     { // just use width for both dimensions
       g.fillOval(ix - w / 2, iy - w / 2, w, w);
     }
@@ -649,15 +636,15 @@ public class Node
     Color backCol = getPaintBackColor(tgPanel);
     g.setColor(backCol);
 
-    if (typ == NodeStyle.STYLE_ROUNDRECT)//TODO: abstract out into node or interface
+    if (style == NodeStyle.STYLE_ROUNDRECT)//TODO: abstract out into node or interface
     {
       g.fillRoundRect(ix - w / 2 + 2, iy - h / 2 + 2, w - 4, h - 4, r, r);
     }
-    else if (typ == NodeStyle.STYLE_ELLIPSE)//TODO: abstract out into node or interface
+    else if (style == NodeStyle.STYLE_ELLIPSE)//TODO: abstract out into node or interface
     {
       g.fillOval(ix - w / 2 + 2, iy - h / 2 + 2, w - 4, h - 4);
     }
-    else if (typ == NodeStyle.STYLE_CIRCLE)//TODO: abstract out into node or interface
+    else if (style == NodeStyle.STYLE_CIRCLE)//TODO: abstract out into node or interface
     {
       g.fillOval(ix - w / 2 + 2, iy - w / 2 + 2, w - 4, w - 4);
     }
