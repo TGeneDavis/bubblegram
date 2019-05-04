@@ -54,6 +54,7 @@
 package com.terrancedavis.bubblediagram.tg.graphlayout;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 
 /**
  * Edge.
@@ -264,39 +265,41 @@ public class Edge
     //Forget hyperbolic bending for now
 
     g.setColor(c);
+    Graphics2D g2d = (Graphics2D) g.create();;
 
-    int x3 = x1;
-    int y3 = y1;
 
-    double dist = Math.sqrt((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
-    if (dist > 10)
-    {
-      double adjustDistRatio = (dist - 10) / dist;
-      x3 = (int) (x1 + (x2 - x1) * adjustDistRatio);
-      y3 = (int) (y1 + (y2 - y1) * adjustDistRatio);
-    }
+    // setting up an easy grid for drawing
+    // and then transforming and rotating it into position
 
-    x3 = (int) ((x3 * 4 + x1) / 5.0);
-    y3 = (int) ((y3 * 4 + y1) / 5.0);
+    double dx = x2 - x1;
+    double dy = y2 - y1;
 
-    g.drawLine(x3, y3, x2, y2);
-    g.drawLine(x1, y1, x3, y3);
-    g.drawLine(x1 + 1, y1, x3, y3);
-    g.drawLine(x1 + 2, y1, x3, y3);
-    g.drawLine(x1 + 3, y1, x3, y3);
-    g.drawLine(x1 + 4, y1, x3, y3);
-    g.drawLine(x1 - 1, y1, x3, y3);
-    g.drawLine(x1 - 2, y1, x3, y3);
-    g.drawLine(x1 - 3, y1, x3, y3);
-    g.drawLine(x1 - 4, y1, x3, y3);
-    g.drawLine(x1, y1 + 1, x3, y3);
-    g.drawLine(x1, y1 + 2, x3, y3);
-    g.drawLine(x1, y1 + 3, x3, y3);
-    g.drawLine(x1, y1 + 4, x3, y3);
-    g.drawLine(x1, y1 - 1, x3, y3);
-    g.drawLine(x1, y1 - 2, x3, y3);
-    g.drawLine(x1, y1 - 3, x3, y3);
-    g.drawLine(x1, y1 - 4, x3, y3);
+    double angle = Math.atan2(dy, dx);
+
+    int len = (int) Math.sqrt(dx*dx + dy*dy);
+
+    AffineTransform at = AffineTransform.getTranslateInstance(x1, y1);
+    at.concatenate(AffineTransform.getRotateInstance(angle));
+    g2d.transform(at);
+
+    // Draw horizontal arrow starting in (0, 0)
+    // any shape of arrow could go here, such as ...
+
+    //final int ARR_SIZE = 4;
+    //g2d.drawLine(0, 0, len, 0);
+    //g2d.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
+    //    new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
+
+    // would be your traditional arrow
+
+    // Now for the actual drawing ...
+
+    final int BASE_WIDTH = 4;
+    g2d.drawLine(0, 0, len, 0);
+    g2d.fillPolygon(
+        new int[] {0, 0, len, 0},
+        new int[] {BASE_WIDTH, -BASE_WIDTH, 0, BASE_WIDTH}, 4);
+
   }
 
   public void paint(Graphics g, TGPanel tgPanel)
