@@ -140,9 +140,9 @@ public class DragAddUI extends TGAbstractDragUI implements TGPaintListener
             c = Color.darkGray;
         else
             c = Color.blue;
-
-        Edge.paintArrow(g, (int) dragAddNode.drawx, (int) dragAddNode.drawy,
-               mousePos.x, mousePos.y, c);
+// I have not found any bad results from commenting this out.
+//        Edge.paintArrow(g, (int) dragAddNode.drawx, (int) dragAddNode.drawy,
+//               mousePos.x, mousePos.y, c);
     }
 
 } // end DragAddUI

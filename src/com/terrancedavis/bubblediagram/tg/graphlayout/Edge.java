@@ -53,6 +53,8 @@
 
 package com.terrancedavis.bubblediagram.tg.graphlayout;
 
+import com.terrancedavis.bubblediagram.EdgePainter;
+
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 
@@ -75,6 +77,9 @@ public class Edge
   protected int length;
   protected boolean visible;
   protected String id = null;
+
+  // default is just a line
+  private EdgePainter edgePainter = (g2d, len) -> g2d.drawLine(0, 0, len, 0);
 
   // ............
 
@@ -260,7 +265,18 @@ public class Edge
     return distFromPoint(px, py) < 10;
   }
 
-  public static void paintArrow(Graphics g, int x1, int y1, int x2, int y2, Color c)
+
+  public EdgePainter getEdgePainter()
+  {
+    return edgePainter;
+  }
+
+  public void setEdgePainter(EdgePainter edgePainter)
+  {
+    this.edgePainter = edgePainter;
+  }
+
+  public void paintArrow(Graphics g, int x1, int y1, int x2, int y2, Color c)
   {
     //Forget hyperbolic bending for now
 
@@ -282,23 +298,10 @@ public class Edge
     at.concatenate(AffineTransform.getRotateInstance(angle));
     g2d.transform(at);
 
-    // Draw horizontal arrow starting in (0, 0)
-    // any shape of arrow could go here, such as ...
-
-    //final int ARR_SIZE = 4;
-    //g2d.drawLine(0, 0, len, 0);
-    //g2d.fillPolygon(new int[] {len, len-ARR_SIZE, len-ARR_SIZE, len},
-    //    new int[] {0, -ARR_SIZE, ARR_SIZE, 0}, 4);
-
-    // would be your traditional arrow
-
     // Now for the actual drawing ...
 
-    final int BASE_WIDTH = 4;
-    g2d.drawLine(0, 0, len, 0);
-    g2d.fillPolygon(
-        new int[] {0, 0, len, 0},
-        new int[] {BASE_WIDTH, -BASE_WIDTH, 0, BASE_WIDTH}, 4);
+    edgePainter.drawEdge(g2d, len);
+
 
   }
 

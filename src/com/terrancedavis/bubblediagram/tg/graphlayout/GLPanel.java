@@ -49,12 +49,14 @@
 
 package com.terrancedavis.bubblediagram.tg.graphlayout;
 
+import com.terrancedavis.bubblediagram.EdgePainter;
 import com.terrancedavis.bubblediagram.tg.graphlayout.graphelements.TGForEachNode;
 import com.terrancedavis.bubblediagram.tg.graphlayout.interaction.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Hashtable;
+import java.util.function.Function;
 
 /**
  * GLPanel contains code for adding scrollbars and interfaces to the TGPanel
@@ -492,6 +494,17 @@ public class GLPanel extends Panel
       tgPanel.addHiddenNode(n);//TODO: trigger addHiddenNode()
     }
 
+    // setting up the method for painting the arrows
+    EdgePainter ep = (Graphics2D g2d, int len) ->
+    {
+        final int BASE_WIDTH = 4;
+        g2d.drawLine(0, 0, len, 0);
+        g2d.fillPolygon(
+            new int[] {0, 0, len, 0},
+            new int[] {BASE_WIDTH, -BASE_WIDTH, 0, BASE_WIDTH}, 4);
+    };
+
+    //creating the edges for each node
     TGForEachNode fen = new TGForEachNode()
     {
       public void forEachNode(Node n)
@@ -501,7 +514,8 @@ public class GLPanel extends Panel
           Node r = tgPanel.getGES().getRandomNode();
           if (r != n && tgPanel.findEdge(r, n) == null)
           {
-            tgPanel.addEdge(r, n, Edge.DEFAULT_LENGTH);//TODO: trigger addHiddenEdge()
+            Edge e = tgPanel.addEdge(r, n, Edge.DEFAULT_LENGTH);//TODO: trigger addHiddenEdge()
+            e.setEdgePainter(ep);
           }
         }
       }
