@@ -50,13 +50,13 @@
 package com.terrancedavis.bubblediagram.tg.graphlayout;
 
 import com.terrancedavis.bubblediagram.EdgePainter;
+import com.terrancedavis.bubblediagram.NodeStyle;
 import com.terrancedavis.bubblediagram.tg.graphlayout.graphelements.TGForEachNode;
 import com.terrancedavis.bubblediagram.tg.graphlayout.interaction.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Hashtable;
-import java.util.function.Function;
 
 /**
  * GLPanel contains code for adding scrollbars and interfaces to the TGPanel
@@ -486,7 +486,8 @@ public class GLPanel extends Panel
     Node n1 = new Node(""+tgPanel.getNodeCount() + 1, "room_zero");
     n1.setVisible(true);
     tgPanel.addNode(n1);//TODO: trigger addHiddenNode()
-    n1.setType(0);
+    n1.setType( NodeStyle.STYLE_NONE);
+
     for (int i = 0; i < 249; i++)
     {
       Node n = (new Node(""+tgPanel.getNodeCount() + 1));

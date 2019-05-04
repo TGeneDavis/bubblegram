@@ -53,6 +53,8 @@
 
 package com.terrancedavis.bubblediagram.tg.graphlayout;
 
+import com.terrancedavis.bubblediagram.NodeStyle;
+
 import java.awt.*;
 import java.util.Vector;
 
@@ -65,26 +67,6 @@ import java.util.Vector;
  */
 public class Node
 {
-
-  /**
-   * This Node's type is a Rectangle.
-   */
-  public final static int TYPE_RECTANGLE = 1;
-
-  /**
-   * This Node's type is a Round Rectangle.
-   */
-  public final static int TYPE_ROUNDRECT = 2;
-
-  /**
-   * This Node's type is an Ellipse.
-   */
-  public final static int TYPE_ELLIPSE = 3;
-
-  /**
-   * This Node's type is a Circle.
-   */
-  public final static int TYPE_CIRCLE = 4;
 
   public static final Font SMALL_TAG_FONT = new Font("Courier", Font.PLAIN, 9);
 
@@ -104,16 +86,9 @@ public class Node
 
   public static Font TEXT_FONT = new Font("Verdana", Font.PLAIN, 10);
 
-  public static int DEFAULT_TYPE = 1;
+  public static NodeStyle DEFAULT_TYPE = NodeStyle.STYLE_RECTANGLE;
 
-  /**
-   * an int indicating the Node type.
-   *
-   * @see TYPE_RECTANGLE
-   * @see TYPE_ROUNDRECT
-   * @see TYPE_ELLIPSE
-   */
-  protected int typ = TYPE_RECTANGLE;
+  protected NodeStyle typ = NodeStyle.STYLE_RECTANGLE;
   private String id;
 
   public double drawx;
@@ -196,7 +171,7 @@ public class Node
    * @see TYPE_RECTANGLE
    * @see TYPE_ROUNDRECT
    */
-  public Node(String id, int type, Color color, String label)
+  public Node(String id, NodeStyle type, Color color, String label)
   {
     initialize(id);
     typ = type;
@@ -273,7 +248,7 @@ public class Node
     TEXT_FONT = font;
   }
 
-  public void setNodeType(int type)
+  public void setNodeType(NodeStyle type)
   {
     DEFAULT_TYPE = type;
   }
@@ -337,7 +312,7 @@ public class Node
    * @see TYPE_CIRCLE
    */
 
-  public void setType(int type)
+  public void setType(NodeStyle type)
   {
     typ = type;
   }
@@ -350,7 +325,7 @@ public class Node
    * @see TYPE_ELLIPSE
    * @see TYPE_CIRCLE
    */
-  public int getType()
+  public NodeStyle getType()
   {
     return typ;
   }
@@ -654,40 +629,40 @@ public class Node
     Color borderCol = getPaintBorderColor(tgPanel);
     g.setColor(borderCol);
 
-    if (typ == TYPE_ROUNDRECT)
+    if (typ == NodeStyle.STYLE_RECTANGLE)//TODO: abstract out into node or interface
     {
       g.fillRoundRect(ix - w / 2, iy - h / 2, w, h, r, r);
     }
-    else if (typ == TYPE_ELLIPSE)
+    else if (typ == NodeStyle.STYLE_ELLIPSE)//TODO: abstract out into node or interface
     {
       g.fillOval(ix - w / 2, iy - h / 2, w, h);
     }
-    else if (typ == TYPE_CIRCLE)
+    else if (typ == NodeStyle.STYLE_CIRCLE)//TODO: abstract out into node or interface
     { // just use width for both dimensions
       g.fillOval(ix - w / 2, iy - w / 2, w, w);
     }
     else
-    { // TYPE_RECTANGLE
+    { // STYLE_RECTANGLE
       g.fillRect(ix - w / 2, iy - h / 2, w, h);
     }
 
     Color backCol = getPaintBackColor(tgPanel);
     g.setColor(backCol);
 
-    if (typ == TYPE_ROUNDRECT)
+    if (typ == NodeStyle.STYLE_ROUNDRECT)//TODO: abstract out into node or interface
     {
       g.fillRoundRect(ix - w / 2 + 2, iy - h / 2 + 2, w - 4, h - 4, r, r);
     }
-    else if (typ == TYPE_ELLIPSE)
+    else if (typ == NodeStyle.STYLE_ELLIPSE)//TODO: abstract out into node or interface
     {
       g.fillOval(ix - w / 2 + 2, iy - h / 2 + 2, w - 4, h - 4);
     }
-    else if (typ == TYPE_CIRCLE)
+    else if (typ == NodeStyle.STYLE_CIRCLE)//TODO: abstract out into node or interface
     {
       g.fillOval(ix - w / 2 + 2, iy - w / 2 + 2, w - 4, w - 4);
     }
     else
-    { // TYPE_RECTANGLE
+    { // STYLE_RECTANGLE
       g.fillRect(ix - w / 2 + 2, iy - h / 2 + 2, w - 4, h - 4);
     }
 
