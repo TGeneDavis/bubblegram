@@ -68,6 +68,7 @@ import java.util.Hashtable;
  */
 public class GLPanel extends Panel
 {
+  public static Object lockObject = new Object();
 
   public String zoomLabel = "Zoom"; // label for zoom menu item
   public String rotateLabel = "Rotate"; // label for rotate menu item
@@ -523,7 +524,10 @@ public class GLPanel extends Panel
     };
     tgPanel.getGES().forAllNodes(fen);
 
-    tgPanel.setLocale(n1, 1);
+    //Want to wait to repaint the graph until the visual pruning is done
+    tgPanel.setLocale(n1, 1);//prunes the visible tree of nodes
+    try {Thread.sleep(2000);} catch (Exception e) {}//don't want to draw until pruning is finished
+
     tgPanel.setSelect(n1);
 //    try
 //    {

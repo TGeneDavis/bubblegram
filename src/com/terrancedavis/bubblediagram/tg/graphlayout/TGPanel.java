@@ -1167,9 +1167,6 @@ public class TGPanel extends Panel
 
     paintComponents(offgraphics); //Paint any components that have been added to this panel
     g.drawImage(offscreen, 0, 0, null);
-
-    System.out.println("remove me");
-
   }
 
 
