@@ -526,7 +526,7 @@ public class GLPanel extends Panel
 
     //Want to wait to repaint the graph until the visual pruning is done
     tgPanel.setLocale(n1, 1);//prunes the visible tree of nodes
-    try {Thread.sleep(2000);} catch (Exception e) {}//don't want to draw until pruning is finished
+    try {Thread.sleep(2000);} catch (Exception e) {}//don't want to draw until pruning is finished ... pausing the EDT
 
     tgPanel.setSelect(n1);
 //    try
