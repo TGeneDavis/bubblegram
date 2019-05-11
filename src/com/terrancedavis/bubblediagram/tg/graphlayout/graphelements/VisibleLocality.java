@@ -96,7 +96,7 @@ public class VisibleLocality extends Locality {
   }
 
   public boolean removeEdge( Edge edge ) {
-        boolean removed = super.removeEdge(edge);
+        boolean removed = super.removeEdge(edge);//TODO: actually remove this edge
         if (removed) {
             edge.setVisible(false);
             edge.from.visibleEdgeCnt--;
@@ -106,7 +106,7 @@ public class VisibleLocality extends Locality {
     }
 
     public boolean removeNode( Node node ) {
-        boolean removed = super.removeNode(node);
+        boolean removed = super.removeNode(node);//TODO: actually remove this node
         if (removed) {
             node.setVisible(false);            
         }        

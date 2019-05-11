@@ -484,7 +484,7 @@ public class GLPanel extends Panel
   public void randomGraph() throws TGException
   {
     Node n1 = new Node(""+tgPanel.getNodeCount() + 1, "room_zero");
-    n1.setVisible(true);
+//    n1.setVisible(true);
     tgPanel.addNode(n1);//TODO: trigger addHiddenNode()
     n1.setStyle( NodeStyle.STYLE_NONE);
 

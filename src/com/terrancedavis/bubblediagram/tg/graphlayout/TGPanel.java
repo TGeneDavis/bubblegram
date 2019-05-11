@@ -122,7 +122,7 @@ public class TGPanel extends Panel
   {
     setLayout(null);
 
-    setGraphEltSet(new GraphEltSet());
+    setGraphEltSet(GraphEltSet.getGraphEltSet());
     addMouseListener(new BasicMouseListener());
     basicMML = new BasicMouseMotionListener();
     addMouseMotionListener(basicMML);
@@ -136,7 +136,7 @@ public class TGPanel extends Panel
     TGLayout tgLayout = new TGLayout(this);
     setTGLayout(tgLayout);
     tgLayout.start();
-    setGraphEltSet(new GraphEltSet());
+//    setGraphEltSet(new GraphEltSet());
 
   }
 
@@ -1167,6 +1167,8 @@ public class TGPanel extends Panel
 
     paintComponents(offgraphics); //Paint any components that have been added to this panel
     g.drawImage(offscreen, 0, 0, null);
+
+    System.out.println("remove me");
 
   }
 
